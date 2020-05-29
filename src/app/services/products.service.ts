@@ -7,7 +7,8 @@ import {IProduct} from "../shared/interfaces/product.interface";
 })
 export class ProductsService {
 
-  constructor() { }
+  constructor() {
+  }
 
   getProducts() {
     return JSON.parse(localStorage.getItem('products')) || [];

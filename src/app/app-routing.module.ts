@@ -9,7 +9,8 @@ import {ProductsResolver} from "./services/products-resolver.service";
 const routes: Routes = [
   {
     path: '',
-    component: AllProductsComponent
+    component: AllProductsComponent,
+    resolve: { products: ProductsResolver }
   },
   {
     path: 'add-product',
@@ -18,7 +19,8 @@ const routes: Routes = [
   },
   {
     path: '**',
-    component: AllProductsComponent
+    component: AllProductsComponent,
+    resolve: { products: ProductsResolver }
   }
 ];
 

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Router} from "@angular/router";
+import {ActivatedRoute, Data, Router} from "@angular/router";
 
 import {ProductsService} from "../../services/products.service";
 import {IProduct} from "../../shared/interfaces/product.interface";
@@ -15,7 +15,8 @@ export class AllProductsComponent implements OnInit {
   totalPrice: number;
 
   constructor(private router: Router,
-              private productsService: ProductsService) {
+              private productsService: ProductsService,
+              private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
@@ -24,10 +25,11 @@ export class AllProductsComponent implements OnInit {
 
   /* Get all products*/
   getProducts() {
-    /*this.productsService.addProductSubject.subscribe(data => console.log(data))*/
-    this.allProducts = this.productsService.getProducts();
-    this.filteredProducts = this.allProducts;
-    this.totalPrice = this.totalPriceCounter(this.allProducts);
+    this.route.data.subscribe((data : Data) => {
+      this.allProducts = data['products'];
+      this.filteredProducts = this.allProducts;
+      this.totalPrice = this.totalPriceCounter(this.allProducts);
+    })
   }
 
   /* Filter products */
