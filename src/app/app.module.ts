@@ -1,12 +1,13 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
+import {ReactiveFormsModule} from "@angular/forms";
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {AddProductsComponent} from './add-products/add-products.component';
-import {AllProductsComponent} from './all-products/all-products.component';
-import {ReactiveFormsModule} from "@angular/forms";
-import {UniqueCategoryPipe} from './shared/unique-category.pipe';
+import {AddProductsComponent} from './components/add-products/add-products.component';
+import {AllProductsComponent} from './components/all-products/all-products.component';
+import {UniqueCategoryPipe} from './shared/pipes/unique-category.pipe';
+import {ProductsResolver} from './services/products-resolver.service';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,7 @@ import {UniqueCategoryPipe} from './shared/unique-category.pipe';
     AppRoutingModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [ProductsResolver],
   bootstrap: [AppComponent]
 })
 export class AppModule {

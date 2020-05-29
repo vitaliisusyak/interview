@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import {AddProductsComponent} from "./add-products/add-products.component";
-import {AllProductsComponent} from "./all-products/all-products.component";
+import {AddProductsComponent} from "./components/add-products/add-products.component";
+import {AllProductsComponent} from "./components/all-products/all-products.component";
+import {ProductsResolver} from "./services/products-resolver.service";
 
 
 const routes: Routes = [
@@ -11,12 +12,9 @@ const routes: Routes = [
     component: AllProductsComponent
   },
   {
-    path: 'all-products',
-    component: AllProductsComponent
-  },
-  {
     path: 'add-product',
-    component: AddProductsComponent
+    component: AddProductsComponent,
+    resolve: { products: ProductsResolver },
   },
   {
     path: '**',

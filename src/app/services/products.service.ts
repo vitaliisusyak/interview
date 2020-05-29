@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import {IProduct} from "./product.interface";
-import {Subject} from "rxjs";
+
+import {IProduct} from "../shared/interfaces/product.interface";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductsService {
-  addProductSubject = new Subject()
+
   constructor() { }
 
   getProducts() {
@@ -16,7 +16,6 @@ export class ProductsService {
   addNewProduct(newProduct: IProduct) {
     const products = this.getProducts();
     products.push(newProduct);
-    this.addProductSubject.next(products);
 
     return localStorage.setItem('products', JSON.stringify(products));
   }

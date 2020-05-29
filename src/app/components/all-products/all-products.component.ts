@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 
-import {ProductsService} from "../shared/products.service";
-import {IProduct} from "../shared/product.interface";
+import {ProductsService} from "../../services/products.service";
+import {IProduct} from "../../shared/interfaces/product.interface";
 
 @Component({
   selector: 'app-all-products',

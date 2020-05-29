@@ -1,7 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/forms";
-import {ProductsService} from "../shared/products.service";
-import {Router} from "@angular/router";
+
+import {ProductsService} from "../../services/products.service";
+import {ActivatedRoute, Data, Router} from "@angular/router";
+import {IProduct} from "../../shared/interfaces/product.interface";
 
 @Component({
   selector: 'app-add-products',
@@ -10,13 +12,23 @@ import {Router} from "@angular/router";
 })
 export class AddProductsComponent implements OnInit {
   addNewProductForm: FormGroup;
+  allProducts: IProduct[];
 
   constructor(private productsService: ProductsService,
-              private router: Router) {
+              private router: Router,
+              private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
+    this.getData()
     this.createForm();
+  }
+
+  /* Get all products */
+  getData() {
+    this.route.data.subscribe((data : Data) => {
+      this.allProducts = data['products'];
+    })
   }
 
   /* Create form */
@@ -59,15 +71,15 @@ export class AddProductsComponent implements OnInit {
     const newProduct = {...form.value.productInfo, price: form.value.price};
     this.productsService.addNewProduct(newProduct)
     this.addNewProductForm.reset();
+    this.router.navigate(['all-product'])
   }
 
   /* Check if product with such title and category exists */
   isProductExist(group: AbstractControl): { [error: string]: boolean } {
     const title = group.get('title').value;
     const category = group.get('category').value;
-    const allProducts = this.productsService.getProducts();
 
-    const checkIfExist = allProducts.find(product => product.title === title && product.category === category)
+    const checkIfExist = this.allProducts.find(product => product.title === title && product.category === category)
     return checkIfExist ? {productExist: true} : null
   }
 }
