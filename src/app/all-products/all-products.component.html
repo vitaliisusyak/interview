@@ -1,0 +1,45 @@
+<main role="main">
+  <div class="jumbotron">
+    <div class="container">
+
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <h4 class="d-flex justify-content-between align-items-center mb-3">
+            <div class="text-muted">
+              <select class="custom-select d-block w-100"
+                      id="country"
+                      required=""
+                      (change)="filterProducts($event)">
+                <option value="">Всі товари</option>
+                <option *ngFor="let productCategory of allProducts | uniqueCategory">{{ productCategory }}</option>
+              </select>
+            </div>
+
+            <span class="badge badge-secondary badge-pill">{{ filteredProducts.length }} шт.</span>
+          </h4>
+          <ul class="list-group mb-3">
+            <li class="list-group-item d-flex
+             justify-content-between
+              lh-condensed"
+                *ngFor="let product of filteredProducts">
+              <div>
+                <h6 class="my-0">{{ product.title }}</h6>
+                <small class="text-muted">{{ product.category }}</small>
+              </div>
+              <span class="text-muted">{{ product.price | currency }}</span>
+            </li>
+
+            <li class="list-group-item d-flex justify-content-between">
+              <span>Total (USD)</span>
+              <strong>{{ totalPrice | currency }}</strong>
+            </li>
+          </ul>
+          <button class="btn btn-primary"
+                  (click)="onAddProductNavigate()">Додати товар
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+

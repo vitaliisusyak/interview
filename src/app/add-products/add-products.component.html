@@ -1,0 +1,81 @@
+<main role="main">
+  <div class="jumbotron">
+    <div class="container">
+
+      <div class="row justify-content-center">
+
+        <div class="col-md-6">
+          <h4 class="mb-3">Додати товар</h4>
+          <form class="needs-validation"
+                novalidate=""
+                [formGroup]="addNewProductForm">
+            <div formGroupName="productInfo">
+              <div class="row">
+                <div class="col-md-12 mb-3">
+                  <label for="name">Назва товару</label>
+                  <input type="text"
+                         class="form-control"
+                         id="name"
+                         placeholder=""
+                         formControlName="title">
+                  <div class="text-danger"
+                       *ngIf="title.hasError('required') && title.touched">
+                    Категорія є обовязковим полем
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-2">
+                <div class="col-md-12">
+                  <label for="category">Категорія</label>
+                  <input type="text"
+                         class="form-control"
+                         id="category"
+                         placeholder=""
+                         value=""
+                         formControlName="category">
+                  <div class="text-danger"
+                       *ngIf="category.hasError('required') && category.touched">
+                    Категорія є обовязковим полем
+                  </div>
+                  <div class="text-danger"
+                       *ngIf="productInfo.hasError('productExist')">
+                    Продукт з такою назвою і категорією вже існує
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row mb-4 justify-content-start">
+              <div class="col-md-12">
+                <label for="price">Ціна, $</label>
+                <input type="number"
+                       class="form-control"
+                       id="price"
+                       placeholder=""
+                       value=""
+                       min="1" max="1000"
+                       formControlName="price">
+                <div class="text-danger" *ngIf="price.hasError('max')">
+                  Ціна не повинна первищувати <strong>1000$</strong>
+                </div>
+                <div class="text-danger" *ngIf="price.hasError('min')">
+                  Ціна не повинна бути нижчою ніж <strong>1$</strong>
+                </div>
+                <div class="text-danger"
+                     *ngIf="price.hasError('required') && price.touched">
+                  Ціна є обовязковим полем
+                </div>
+              </div>
+            </div>
+
+
+            <button class="btn btn-primary btn-lg btn-block"
+                    type="submit"
+                    [disabled]="addNewProductForm.invalid"
+                    (click)="onAddProduct(addNewProductForm)">Додати
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
